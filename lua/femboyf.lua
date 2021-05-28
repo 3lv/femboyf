@@ -3,6 +3,8 @@ local M = {}
 M.config = {
 	when = 'always',
 	style = '1perword',
+	color1 = '#b0da6c',
+	color2 = '#648424',
 }
 -- aliases
 local a = vim.api
@@ -53,6 +55,7 @@ local function Highlight_line( inDirection )
 	if inDirection == 'right' then da, db = 1, 1 end
 	if inDirection == 'left' then da, db = 2, 2 end
 	for direction = da, db do
+		local poz_start, poz_end, step
 		local f_letter = {} -- The frequency of each character
 		 -- direction = 1 = right => Prepare [col + 1, #str, 1]
 		 -- for the next for(going right)
@@ -186,21 +189,17 @@ local function async_refresh_call() async_refresh_request:send() end
 --
 M.setup = function  ( user_config )
 	M.config = vim.tbl_deep_extend("force", M.config, user_config or { })
-	if vim.fn.hlexists('FFirst') == 0 then
-		vim.cmd [[
-		hi link FFirst SpellRare
-		hi link FSecond SpellLocal
-		]]
-	end
 	PreviousBuffer = 0
 	if M.config.when == 'always' then
-		vim.cmd [[
+		vim.cmd(string.format([[
 		augroup femboyf
 		autocmd!
 		autocmd CursorMoved,InsertEnter,InsertLeave,FocusGained * lua require('femboyf').async_refresh()
 		autocmd FocusLost * lua require('femboyf').refresh('clear')
+		autocmd ColorScheme * hi FFirst guifg=%s
+		autocmd ColorScheme * hi FSecond guifg=%s
 		augroup END
-		]]
+		]], M.config.color1, M.config.color2))
 		require('femboyf').async_refresh()
 	end
 end

@@ -27,5 +27,9 @@ require('femboyf').setup {
 	-- '1perword':          1 character per word (default)
 	-- 'line':              all possible characters in a line
 	style = '1perword',
+
+	-- What colors to use? #HEX / default vim colors
+	color1 = '#b0da6c',
+	color2 = '#648424',
 }
 ```
