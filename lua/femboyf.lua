@@ -194,7 +194,7 @@ M.setup = function  ( user_config )
 		vim.cmd(string.format([[
 		augroup femboyf
 		autocmd!
-		autocmd CursorMoved,InsertEnter,InsertLeave,FocusGained * lua require('femboyf').async_refresh()
+		autocmd CursorMoved,InsertEnter,InsertLeave,FocusGained,TermEnter,TermLeave * lua require('femboyf').async_refresh()
 		autocmd FocusLost * lua require('femboyf').refresh('clear')
 		autocmd ColorScheme * hi FFirst guifg=%s
 		autocmd ColorScheme * hi FSecond guifg=%s
