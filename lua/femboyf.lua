@@ -157,6 +157,10 @@ local function Refresh_Highlight( inDirection )
 	end
 	-- sets the PreviousBuffer for the next function call
 	PreviousBuffer = vim.fn.bufnr('%')
+	-- do not highlight in terminal buffers
+	if vim.api.nvim_buf_get_option(vim.fn.bufnr('%'), 'buftype') == 'terminal' then
+		return
+	end
 	local mode = vim.fn.mode()
 	-- modes that require highlighting
 	local modes_to_highlight = {
