@@ -200,8 +200,8 @@ M.setup = function  ( user_config )
 		autocmd!
 		autocmd CursorMoved,InsertEnter,InsertLeave,FocusGained * lua require('femboyf').async_refresh()
 		autocmd FocusLost * lua require('femboyf').refresh('clear')
-		autocmd ColorScheme * hi FFirst guifg=%s
-		autocmd ColorScheme * hi FSecond guifg=%s
+		autocmd ColorScheme * hi FFirst guifg=%s ctermfg="Green"
+		autocmd ColorScheme * hi FSecond guifg=%s ctermfg="DarkGreen"
 		augroup END
 		]], M.config.color1, M.config.color2))
 		require('femboyf').async_refresh()
